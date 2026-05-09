@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import VideoPlayer from "./VideoPlayer";
 
 const COLORS = {
   navy: "#050d1a",
@@ -690,71 +691,9 @@ export default function MissionPage() {
           الابتدائية مشاريعهم الأولى بمرافقة طلبة الهندسة.
         </p>
 
-        <div className="video-wrapper">
-          {videoType === "file" && (
-            <video src={videoSrc} controls autoPlay style={{ width: "100%", height: "100%" }} />
-          )}
-          {videoType === "youtube" && (
-            <iframe src={videoSrc} allow="autoplay; fullscreen" allowFullScreen title="mission video" />
-          )}
-          {!videoType && (
-            <div className="video-placeholder">
-              {showYTInput ? (
-                <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center", zIndex: 1, width: "80%", maxWidth: 420 }}>
-                  <p style={{ color: "#8899bb", fontSize: 14 }}>الصق رابط يوتيوب:</p>
-                  <input
-                    value={youtubeInput}
-                    onChange={e => setYoutubeInput(e.target.value)}
-                    placeholder="https://youtube.com/watch?v=..."
-                    style={{
-                      width: "100%", padding: "12px 16px", borderRadius: 12,
-                      background: "rgba(255,255,255,0.07)", border: "1px solid rgba(26,127,255,0.3)",
-                      color: "#f0f4ff", fontSize: 14, fontFamily: "Cairo", direction: "ltr",
-                      outline: "none",
-                    }}
-                    onKeyDown={e => e.key === "Enter" && handleYoutube()}
-                  />
-                  <div style={{ display: "flex", gap: 12 }}>
-                    <button className="btn-primary" style={{ padding: "10px 28px", fontSize: 14 }} onClick={handleYoutube}>تضمين</button>
-                    <button className="btn-outline" style={{ padding: "10px 20px", fontSize: 14 }} onClick={() => setShowYTInput(false)}>إلغاء</button>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <div className="play-btn-wrap" onClick={() => fileRef.current?.click()}>
-                    <div className="play-ring" />
-                    <div className="play-ring play-ring-2" />
-                    <div className="play-btn">
-                      <div className="play-triangle" />
-                    </div>
-                  </div>
-                  <p className="video-upload-label">
-                    انقر لرفع <span>فيديو من جهازك</span>
-                  </p>
-                  <div style={{ display: "flex", gap: 12, zIndex: 1, flexWrap: "wrap", justifyContent: "center" }}>
-                    <button className="btn-primary" style={{ padding: "10px 28px", fontSize: 13 }} onClick={() => fileRef.current?.click()}>
-                      📁 رفع فيديو
-                    </button>
-                    <button className="btn-outline" style={{ padding: "10px 28px", fontSize: 13 }} onClick={() => setShowYTInput(true)}>
-                      ▶ رابط يوتيوب
-                    </button>
-                  </div>
-                  <input ref={fileRef} type="file" accept="video/*" className="video-input" onChange={handleFile} />
-                </>
-              )}
-              <div className="video-glow-bar" />
-            </div>
-          )}
-        </div>
+<VideoPlayer src="/video.mp4" />
 
-        {videoType && (
-          <div style={{ marginTop: 16, display: "flex", gap: 12 }}>
-            <button className="btn-outline" style={{ padding: "8px 20px", fontSize: 13 }}
-              onClick={() => { setVideoSrc(null); setVideoType(null); setYoutubeInput(""); }}>
-              ✕ تغيير الفيديو
-            </button>
-          </div>
-        )}
+    
       </section>
 
       {/* MISSION */}
